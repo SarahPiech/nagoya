@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>我的旅遊助手</title>
+    <title>名古屋旅遊助手</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -22,40 +22,78 @@
         <div id="plan" class="tab-content active space-y-6">
             <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-5 text-white shadow-lg">
                 <p class="font-semibold text-lg">去程 CX530 / 回程 CX531</p>
+                <p class="text-xs opacity-80 mt-1">住宿：三井花園飯店名古屋普米爾</p>
             </div>
-            <p class="text-center text-gray-400 py-10">行程內容...</p>
+            
+            <div class="space-y-4">
+                <div class="bg-white rounded-2xl p-4 card-shadow border-l-4 border-blue-500">
+                    <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">DAY 1</span>
+                    <p class="font-bold mt-2">抵達名古屋</p>
+                    <p class="text-sm text-gray-500">15:30 抵達 ➔ 飯店 Check-in ➔ 名古屋站周邊晚餐</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 card-shadow border-l-4 border-blue-500">
+                    <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">DAY 2</span>
+                    <p class="font-bold mt-2">樂高樂園一日遊</p>
+                </div>
+            </div>
         </div>
 
         <div id="guide" class="tab-content space-y-6">
-            <div class="bg-white rounded-2xl p-5 card-shadow">
-                <h2 class="text-xl font-bold">景點導覽</h2>
+            <div class="bg-white rounded-2xl overflow-hidden card-shadow">
+                <div class="h-40 bg-gray-200 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="p-5">
+                    <h2 class="text-xl font-bold mb-2">名古屋城景點導覽</h2>
+                    <p class="text-sm text-gray-600 leading-relaxed">名古屋城是江戶時代德川家康下令建造的，屋頂上的金鯱是最著名的標誌。</p>
+                </div>
             </div>
         </div>
 
         <div id="wallet" class="tab-content space-y-6">
             <div class="bg-white rounded-2xl p-5 card-shadow space-y-4">
-                <h3 class="font-bold">匯率換算</h3>
-                <input id="calc-input" type="text" placeholder="輸入金額..." class="w-full bg-gray-50 rounded-xl p-4">
-                <button onclick="calculateExchange()" class="bg-blue-500 text-white w-full py-3 rounded-xl font-bold">計算</button>
-                <p id="calc-result" class="text-center text-2xl font-bold text-blue-600 mt-2">NT$ 0</p>
+                <div class="flex justify-between items-center">
+                    <h3 class="font-bold text-sm">匯率換算 (1 TWD =)</h3>
+                    <div class="text-xs bg-gray-100 px-2 py-1 rounded flex items-center gap-1">
+                         <input id="rate-setting" type="number" value="4.76" class="w-10 bg-transparent font-bold text-blue-600 outline-none text-right"> JPY
+                    </div>
+                </div>
+                <input id="calc-input" type="text" placeholder="輸入金額 (如 1000+500)" class="w-full bg-gray-50 border-none rounded-xl p-4 text-lg font-mono focus:ring-2 focus:ring-blue-500">
+                <div class="flex justify-between items-end">
+                    <button onclick="calculateExchange()" class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold shadow-md active:scale-95 transition-transform">計算</button>
+                    <div class="text-right">
+                        <p class="text-xs text-gray-400">台幣約</p>
+                        <p id="calc-result" class="text-2xl font-bold text-blue-600">NT$ 0</p>
+                    </div>
+                </div>
             </div>
-            <div id="expense-list" class="space-y-3"></div>
+            <div id="expense-list" class="space-y-3">
+                </div>
         </div>
 
         <div id="lists" class="tab-content space-y-6">
-            <div id="checklist-container" class="space-y-3"></div>
-            <textarea id="memo-input" oninput="saveMemo()" class="w-full h-32 bg-white rounded-xl p-4 card-shadow" placeholder="備忘錄..."></textarea>
+            <div class="bg-white rounded-2xl p-5 card-shadow">
+                <h3 class="font-bold mb-4">行前 CheckList</h3>
+                <div id="checklist-container" class="space-y-3"></div>
+            </div>
+            <div class="bg-white rounded-2xl p-5 card-shadow">
+                <h3 class="font-bold mb-4">個人備忘錄</h3>
+                <textarea id="memo-input" oninput="saveMemo()" class="w-full h-40 bg-gray-50 border-none rounded-xl p-4 text-sm focus:ring-2 focus:ring-blue-500" placeholder="在此輸入筆記..."></textarea>
+            </div>
         </div>
 
         <div id="info" class="tab-content">
-            <div class="bg-white rounded-2xl p-5 card-shadow">
-                <p>緊急電話：110</p>
+            <div class="bg-white rounded-2xl p-5 card-shadow space-y-4">
+                <h3 class="font-bold border-b pb-2 text-red-600">緊急聯絡</h3>
+                <p class="text-sm">日本報警：110</p>
+                <p class="text-sm">日本救護車：119</p>
+                <div class="p-3 bg-blue-50 rounded-xl text-xs text-blue-800">
+                    名古屋中文諮詢熱線：[填入電話]
+                </div>
             </div>
         </div>
     </main>
 
     <nav class="fixed bottom-0 left-0 right-0 glass-nav border-t flex justify-around items-center px-2 py-3 safe-bottom z-50">
-        <button onclick="showTab('plan', '行程表 PLAN', this)" class="nav-item active flex flex-col items-center gap-1 text-blue-600">
+        <button onclick="showTab('plan', '行程表 PLAN', this)" class="nav-item flex flex-col items-center gap-1 text-blue-600">
             <i class="fa-solid fa-calendar-day text-xl"></i>
             <span class="text-[10px] font-bold">PLAN</span>
         </button>
