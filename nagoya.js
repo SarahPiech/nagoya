@@ -1,114 +1,133 @@
-// --- 初始化資料 ---
-const initialCheckList = ["護照/簽證", "日幣現金", "Visit Japan Web QR Code", "保險憑證", "行動電源", "網卡/Wifi機"];
+// --- 核心導航功能 ---
+function showTab(tabId, title, element) {
+    // 隱藏所有分頁
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    // 顯示目標分頁
+    document.getElementById(tabId).classList.add('active');
+    // 更新標題
+    document.getElementById('page-title').innerText = title;
 
-// --- 頁面切換邏輯 ---
-function switchTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-    document.getElementById(tabId).classList.remove('hidden');
-    
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
-    
+    // 更新導航列按鈕顏色
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('text-blue-600');
+        item.classList.add('text-gray-400');
+    });
+    element.classList.remove('text-gray-400');
+    element.classList.add('text-blue-600');
+
     window.scrollTo(0, 0);
 }
 
-// --- 錢包與匯率功能 ---
-let expenses = JSON.parse(localStorage.getItem('trip_expenses')) || [];
-
-function calculate() {
-    const input = document.getElementById('calcDisplay').value;
-    const rate = parseFloat(document.getElementById('rateInput').value);
+// --- 匯率換算功能 ---
+function calculateExchange() {
+    const input = document.getElementById('calc-input').value;
+    const rate = parseFloat(document.getElementById('rate-setting').value) || 1;
     try {
-        // 安全地計算簡單算式
-        const result = Function(`'use strict'; return (${input})`)();
-        document.getElementById('calcDisplay').value = result;
-        document.getElementById('twdResult').innerText = Math.round(result * rate);
+        // 使用安全的方式過濾並運算
+        const result = eval(input.replace(/[^-()\d/*+.]/g, ''));
+        const twd = (result / rate).toFixed(0);
+        document.getElementById('calc-result').innerText = `NT$ ${Number(twd).toLocaleString()}`;
     } catch (e) {
-        alert("計算格式錯誤");
+        alert("運算式格式有誤");
     }
 }
 
-function addExpense() {
-    const item = document.getElementById('expenseItem').value;
-    const jpy = parseFloat(document.getElementById('expenseAmount').value);
-    const rate = parseFloat(document.getElementById('rateInput').value);
+// --- 記帳功能 (不含照片) ---
+function saveExpense() {
+    const item = document.getElementById('exp-item').value;
+    const amount = document.getElementById('exp-amount').value;
+    if (!item || !amount) return alert("請輸入金額與品項");
 
-    if (!item || !jpy) return;
-
+    const rate = parseFloat(document.getElementById('rate-setting').value) || 1;
     const expense = {
         id: Date.now(),
         item,
-        jpy,
-        twd: Math.round(jpy * rate),
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        jpy: amount,
+        twd: (amount / rate).toFixed(0)
     };
 
+    const expenses = JSON.parse(localStorage.getItem('expenses') || '[]');
     expenses.unshift(expense);
-    localStorage.setItem('trip_expenses', JSON.stringify(expenses));
+    localStorage.setItem('expenses', JSON.stringify(expenses));
+
+    // Reset 重置輸入框
+    document.getElementById('exp-item').value = '';
+    document.getElementById('exp-amount').value = '';
     renderExpenses();
-    
-    // Reset fields
-    document.getElementById('expenseItem').value = '';
-    document.getElementById('expenseAmount').value = '';
 }
 
 function renderExpenses() {
-    const list = document.getElementById('expenseList');
-    list.innerHTML = expenses.map(ex => `
-        <div class="card flex justify-between items-center py-3">
-            <div>
-                <p class="font-bold text-sm">${ex.item}</p>
-                <p class="text-[10px] text-stone-400">${ex.time}</p>
+    const list = document.getElementById('expense-list');
+    const data = JSON.parse(localStorage.getItem('expenses') || '[]');
+    list.innerHTML = data.map(ex => `
+        <div class="bg-white p-4 rounded-xl flex items-center justify-between card-shadow">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
+                    <i class="fa-solid fa-yen-sign"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-bold">${ex.item}</p>
+                    <p class="text-[10px] text-gray-400">¥${Number(ex.jpy).toLocaleString()} → NT$${Number(ex.twd).toLocaleString()}</p>
+                </div>
             </div>
-            <div class="text-right">
-                <p class="text-sm font-bold text-forest">¥${ex.jpy.toLocaleString()}</p>
-                <p class="text-[10px] text-stone-500">≈ $${ex.twd.toLocaleString()} TWD</p>
-            </div>
+            <button onclick="deleteExpense(${ex.id})" class="text-gray-300 hover:text-red-500 p-2 transition-colors">
+                <i class="fa-solid fa-trash-can text-xs"></i>
+            </button>
         </div>
     `).join('');
 }
 
-// --- 清單與備忘功能 ---
-let memos = JSON.parse(localStorage.getItem('trip_memos')) || [];
-let checks = JSON.parse(localStorage.getItem('trip_checks')) || initialCheckList.map(t => ({text: t, done: false}));
+function deleteExpense(id) {
+    let data = JSON.parse(localStorage.getItem('expenses') || '[]');
+    data = data.filter(x => x.id !== id);
+    localStorage.setItem('expenses', JSON.stringify(data));
+    renderExpenses();
+}
 
-function renderLists() {
-    // Render Checklist
-    const checkEl = document.getElementById('checkList');
-    checkEl.innerHTML = checks.map((c, i) => `
-        <label class="flex items-center space-x-3 bg-white p-3 rounded-xl shadow-sm">
-            <input type="checkbox" onchange="toggleCheck(${i})" ${c.done ? 'checked' : ''} class="w-5 h-5 accent-emerald-600">
-            <span class="${c.done ? 'line-through text-stone-400' : ''} text-sm">${c.text}</span>
+// --- 清單功能 ---
+const defaultChecklist = ['護照', '網卡/Wi-Fi機', '日幣現鈔', '充電線/行動電源', '藥品', '保險證明'];
+
+function renderChecklist() {
+    const savedState = JSON.parse(localStorage.getItem('checklist') || '{}');
+    const container = document.getElementById('checklist-container');
+    container.innerHTML = defaultChecklist.map(item => `
+        <label class="flex items-center gap-3 bg-gray-50 p-4 rounded-xl cursor-pointer transition-colors active:bg-gray-100">
+            <input type="checkbox" onchange="saveCheckState('${item}', this.checked)" ${savedState[item] ? 'checked' : ''} class="w-5 h-5 rounded border-gray-300 text-blue-500 focus:ring-blue-500">
+            <span class="text-sm ${savedState[item] ? 'line-through text-gray-400' : 'text-gray-700 font-medium'}">${item}</span>
         </label>
     `).join('');
-
-    // Render Memos
-    const memoEl = document.getElementById('memoDisplay');
-    memoEl.innerHTML = memos.map(m => {
-        const isUrl = m.startsWith('http');
-        return isUrl 
-            ? `<a href="${m}" target="_blank" class="block w-full bg-blue-50 text-blue-600 p-3 rounded-xl text-sm font-bold border border-blue-100 mb-2 truncate"><i class="fa-solid fa-link mr-2"></i>連結：${m}</a>`
-            : `<div class="card text-sm bg-white mb-2">${m}</div>`;
-    }).reverse().join('');
 }
 
-function toggleCheck(index) {
-    checks[index].done = !checks[index].done;
-    localStorage.setItem('trip_checks', JSON.stringify(checks));
-    renderLists();
+function saveCheckState(item, isChecked) {
+    const savedState = JSON.parse(localStorage.getItem('checklist') || '{}');
+    savedState[item] = isChecked;
+    localStorage.setItem('checklist', JSON.stringify(savedState));
+    renderChecklist();
 }
 
+// --- 備忘錄功能 ---
 function saveMemo() {
-    const input = document.getElementById('memoInput');
-    if (!input.value.trim()) return;
-    memos.push(input.value.trim());
-    localStorage.setItem('trip_memos', JSON.stringify(memos));
-    input.value = '';
-    renderLists();
+    const text = document.getElementById('memo-input').value;
+    localStorage.setItem('travel_memo', text);
+    extractLinks(text);
 }
 
-// --- 初始化啟動 ---
+function extractLinks(text) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const urls = text.match(urlRegex) || [];
+    const linkArea = document.getElementById('memo-links');
+    linkArea.innerHTML = urls.map(url => `
+        <a href="${url}" target="_blank" class="bg-blue-50 text-blue-600 text-[10px] px-3 py-2 rounded-full border border-blue-100 font-bold">
+            <i class="fa-solid fa-link mr-1"></i>快捷連結
+        </a>
+    `).join('');
+}
+
+// --- 初始化 ---
 window.onload = () => {
     renderExpenses();
-    renderLists();
+    renderChecklist();
+    const savedMemo = localStorage.getItem('travel_memo') || '';
+    document.getElementById('memo-input').value = savedMemo;
+    extractLinks(savedMemo);
 };
