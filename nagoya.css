@@ -1,24 +1,108 @@
-body { 
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-    -webkit-tap-highlight-color: transparent; 
+/* --- 基礎設定 --- */
+:root {
+    --primary-blue: #3b82f6;
+    --bg-gray: #f9fafb;
+    --text-main: #1f2937;
+    --nav-height: 70px;
 }
 
-.tab-content { display: none; }
-.tab-content.active { display: block; animation: fadeIn 0.3s ease; }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-gray);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    /* 防止手機點擊出現藍色區塊 */
+    -webkit-tap-highlight-color: transparent;
 }
 
-.glass-nav { 
-    backdrop-filter: blur(10px); 
-    background: rgba(255, 255, 255, 0.85); 
+/* --- 分頁顯示邏輯 (核心：解決疊在一起的問題) --- */
+.tab-content {
+    display: none; /* 預設全部隱藏 */
 }
 
-.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.tab-content.active {
+    display: block; /* 只有加上 active 類別的才顯示 */
+    animation: fadeInSlide 0.4s ease-out;
+}
 
-.card-shadow { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); }
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-/* 下方按鈕樣式 */
-.nav-item { transition: color 0.2s ease; }
+/* --- 陰影與容器樣式 --- */
+.card-shadow {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+header {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+/* --- 底部導覽列 (毛玻璃效果) --- */
+.glass-nav {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.85);
+    height: var(--nav-height);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* iPhone 安全區域適配 */
+.safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 導航按鈕樣式 */
+.nav-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-item:active {
+    transform: scale(0.9);
+}
+
+/* --- 其他元件優化 --- */
+input, textarea {
+    outline: none;
+    transition: ring 0.2s;
+}
+
+/* 自定義 Checkbox 樣式 */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 2px solid #d1d5db;
+    accent-color: var(--primary-blue);
+    cursor: pointer;
+}
+
+/* 讓列表項目有更好的點擊感 */
+label.cursor-pointer:active {
+    background-color: #f3f4f6;
+}
+
+/* 捲軸美化 (隱藏但不影響功能，適合手機) */
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
