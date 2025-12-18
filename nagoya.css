@@ -1,1 +1,129 @@
+/* --- 雜誌風格重製 --- */
+:root {
+    --deep-forest: #1A3A32; /* 深墨綠 */
+    --warm-cream: #F7F3E9;  /* 濃奶油色 */
+    --accent-orange: #E67E22; /* 點綴橘 */
+    --soft-border: #D9D2C5;
+}
 
+body {
+    background-color: var(--warm-cream);
+    font-family: 'Noto Sans TC', 'Inter', sans-serif;
+    color: var(--deep-forest);
+    line-height: 1.6;
+}
+
+/* 標題強化：仿雜誌排版 */
+h1, h2, h3 {
+    font-family: 'Quicksand', 'Noto Sans TC', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--deep-forest);
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.section-title::after {
+    content: "2025 TRAVEL";
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+}
+
+/* 頂部 Header 改為大標題風格 */
+header {
+    background: transparent;
+    padding: 3rem 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--soft-border);
+}
+
+header h1 {
+    font-size: 3rem;
+    line-height: 0.9;
+    color: var(--deep-forest);
+    margin-bottom: 0.5rem;
+}
+
+/* 卡片設計：扁平化、細線條、雜誌質感 */
+.card {
+    background: #FFFFFF;
+    border: 1.5px solid var(--deep-forest);
+    border-radius: 0px; /* 雜誌感偏好方角或極小圓角 */
+    padding: 1.5rem;
+    box-shadow: 4px 4px 0px var(--deep-forest); /* 硬質投影 */
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s ease;
+}
+
+.card:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--deep-forest);
+}
+
+/* 行程時間軸：更簡約的線條 */
+.timeline-item {
+    border-left: 1.5px solid var(--deep-forest);
+    margin-left: 0.5rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.time-dot {
+    background: var(--warm-cream);
+    border: 2px solid var(--deep-forest);
+    left: -7px;
+}
+
+/* 按鈕：粗邊框硬派風格 */
+.btn-sm, button {
+    background: var(--deep-forest);
+    color: var(--warm-cream);
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+/* 底部導航：改為簡約白底黑線 */
+nav {
+    background: white;
+    border-top: 1.5px solid var(--deep-forest);
+}
+
+.nav-item.active {
+    color: var(--accent-orange);
+    font-weight: 800;
+}
+
+.nav-item.active i {
+    transform: scale(1.2);
+}
+
+/* 雜誌排版文字 */
+.magazine-layout p {
+    font-size: 0.95rem;
+    text-align: justify;
+    color: #333;
+}
+
+/* 修正輸入框 */
+.input-field {
+    border: 1.5px solid var(--deep-forest);
+    border-radius: 0;
+    background: white;
+}
+
+.tag {
+    border: 1px solid var(--deep-forest);
+    background: transparent;
+    color: var(--deep-forest);
+    border-radius: 0;
+}
