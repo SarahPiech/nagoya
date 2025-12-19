@@ -1,61 +1,100 @@
-/* nagoya.css */
-:root {
-    --primary-blue: #3b82f6;
-    --bg-gray: #f9fafb;
+/* --- 基礎設定 --- */
+body { 
+    font-family: 'Inter', 'Noto Sans TC', sans-serif; 
+    background-color: #F8FAFC; 
+    -webkit-tap-highlight-color: transparent; 
+    color: #1E293B;
 }
 
-body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    background-color: var(--bg-gray);
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* 確保預設隱藏所有分頁 */
-.tab-content {
-    display: none;
-}
-
-/* 顯示活動中的分頁 */
-.tab-content.active {
-    display: block !important;
-    animation: fadeInSlide 0.3s ease-out;
-}
-
-@keyframes fadeInSlide {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.card-shadow {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
-
-.glass-nav {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.9);
-}
-
-.safe-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
-}
-
-.nav-item {
-    transition: all 0.2s;
-    background: transparent;
-    border: none;
-}
-
-.nav-item:active {
-    transform: scale(0.9);
-}
-
-input, textarea {
+/* --- 標準屬性相容性 (Appearance) --- */
+/* 移除所有預設的外觀樣式，確保在各平台顯示一致 */
+input, textarea, select, button { 
+    -webkit-appearance: none;   /* Chrome, Safari, iOS */
+    -moz-appearance: none;      /* Firefox */
+    appearance: none;           /* Standard 標準屬性 */
     outline: none;
 }
 
+/* 恢復 Checkbox 的基本功能顯示 */
 input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+    -webkit-appearance: checkbox;
+    -moz-appearance: checkbox;
+    appearance: checkbox;
+    width: auto;
     cursor: pointer;
+}
+
+/* --- 導覽列與模糊效果 --- */
+.glass-nav { 
+    background: rgba(255, 255, 255, 0.85); 
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px); /* Safari 必要 */
+    border-top: 1px solid rgba(0,0,0,0.05); 
+}
+
+/* --- 分頁與動畫 --- */
+.tab-content { 
+    display: none; 
+    padding-bottom: 120px; 
+}
+
+.tab-content.active { 
+    display: block; 
+    animation: fadeIn 0.3s ease-out; 
+}
+
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+/* --- 卡片設計 --- */
+.card { 
+    background: white; 
+    border-radius: 20px; 
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); 
+    border: 1px solid #F1F5F9; 
+    overflow: hidden;
+}
+
+.flight-card { 
+    background: linear-gradient(135deg, #1E293B 0%, #334155 100%); 
+}
+
+/* --- 時間軸 (Timeline) --- */
+.timeline-line {
+    position: relative;
+}
+
+.timeline-line::before { 
+    content: ''; 
+    position: absolute; 
+    left: 15px; 
+    top: 0; 
+    bottom: 0; 
+    width: 2px; 
+    background: #E2E8F0; 
+    z-index: 0;
+}
+
+/* 確保內容在線條上方 */
+.timeline-line > div, 
+.timeline-line > a { 
+    position: relative; 
+    z-index: 10; 
+}
+
+/* --- 安全區域 (iPhone X+) --- */
+.safe-area-bottom { 
+    padding-bottom: env(safe-area-inset-bottom); 
+}
+
+/* --- 其他 --- */
+#img-preview {
+    border-radius: 12px;
+}
+
+textarea#memo-input {
+    resize: none;
+    border: 1px solid #F1F5F9;
 }
