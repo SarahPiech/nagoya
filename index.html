@@ -13,7 +13,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="nagoya.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="text-slate-800 bg-slate-50">
 
@@ -144,13 +144,27 @@
 
         <section id="guide" class="tab-content">
             <div class="space-y-6">
-                <div class="card overflow-hidden">
-                    <div class="h-44 bg-[url('https://images.unsplash.com/photo-1590252631032-90928014526d?auto=format&fit=crop&w=800&q=80')] bg-cover bg-center"></div>
-                    <div class="p-6">
-                        <h2 class="text-xl font-bold mb-2">名古屋城</h2>
-                        <p class="text-slate-600 text-xs leading-relaxed mb-4">由德川家康於1610年建造，是江戶幕府最重要的城堡之一，以屋頂上的金鯱聞名。</p>
-                        <div class="bg-blue-50 p-3 rounded-lg text-[11px] text-blue-800">💡 冷知識：名古屋城曾是日本第一個被指定為國寶的城堡。</div>
-                    </div>
+    <div class="card overflow-hidden">
+    <a href="https://zh.wikipedia.org/zh-tw/%E5%90%8D%E5%8F%A4%E5%B1%8B%E5%9F%8E" target="_blank" class="block">
+        <div class="h-44 bg-slate-200 overflow-hidden">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nagoya_Castle_20170415.jpg/640px-Nagoya_Castle_20170415.jpg" 
+                 alt="名古屋城" 
+                 class="w-full h-full object-cover hover:opacity-90 transition-opacity">
+        </div>
+    </a>
+    
+    <div class="p-6">
+        <div class="flex justify-between items-center mb-2">
+            <h2 class="text-xl font-bold">名古屋城 <span class="text-slate-400 text-sm font-normal ml-1">なごやじょう</span></h2>
+            <a href="https://zh.wikipedia.org/zh-tw/%E5%90%8D%E5%8F%A4%E5%B1%8B%E5%9F%8E" target="_blank" class="text-blue-500 text-xs flex items-center gap-1">
+                Wiki <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+        <p class="text-slate-600 text-xs leading-relaxed mb-4">由德川家康於1610年建造，是江戶幕府最重要的城堡之一，以屋頂上的金鯱聞名。</p>
+        <div class="bg-blue-50 p-3 rounded-lg text-[11px] text-blue-800">💡 冷知識：名古屋城曾是日本第一個被指定為國寶的城堡。</div>
+    </div>
+</div>
+</div>
                 </div>
                 <div class="card p-5">
                     <h2 class="text-lg font-bold mb-3">合掌村 (白川鄉)</h2>
@@ -261,6 +275,6 @@
         </div>
     </nav>
 
-    <script src="nagoya.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
