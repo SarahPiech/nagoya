@@ -3,118 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>名古屋旅遊助手2.0</title>
+    <title>Nagoya Trip 2025</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/201/201623.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="nagoya.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased">
+<body class="text-slate-800 bg-slate-50">
 
-    <header class="sticky top-0 z-50 bg-white border-b px-6 py-4 flex justify-between items-center card-shadow">
-        <h1 id="page-title" class="text-xl font-bold tracking-tight text-slate-800">行程表 PLAN</h1>
-        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-            <i class="fa-solid fa-plane-departure text-sm"></i>
+    <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md px-6 py-4 flex justify-between items-center border-b border-slate-100">
+        <h1 id="page-title" class="text-xl font-bold tracking-tight text-slate-900 uppercase">Plan</h1>
+        <div class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+            JPY/TWD: <span id="rate-display">0.215</span>
         </div>
     </header>
 
-    <main class="p-4 pb-32">
-        <div id="plan" class="tab-content active space-y-6">
-            <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-5 text-white shadow-lg">
-                <p class="font-semibold text-lg">去程 CX530 / 回程 CX531</p>
-                <p class="text-xs opacity-80 mt-1">住宿：三井花園飯店名古屋普米爾</p>
+    <main class="max-w-md mx-auto px-5 pt-4">
+
+        <section id="plan" class="tab-content active">
+            <div class="mb-8 flight-card text-white p-6 rounded-[24px] shadow-xl relative overflow-hidden">
+                <div class="flex justify-between items-center mb-6 relative z-10">
+                    <span class="text-[10px] font-bold opacity-60 uppercase tracking-[0.2em]">Flight Ticket</span>
+                    <i class="fas fa-plane text-blue-400"></i>
+                </div>
+                <div class="mb-6 relative z-10">
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <p class="text-3xl font-bold tracking-tighter">TPE</p>
+                            <p class="text-[10px] opacity-60">Taipei (12:00)</p>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center px-4 mb-2">
+                            <p class="text-[10px] font-bold mb-1 text-blue-300">CX530</p>
+                            <div class="w-full h-[1px] bg-white/20 relative">
+                                <div class="absolute right-0 -top-1 border-t-4 border-l-4 border-transparent border-l-blue-400"></div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-3xl font-bold tracking-tighter">NGO</p>
+                            <p class="text-[10px] opacity-60">Nagoya (15:30)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-6 border-t border-white/10 relative z-10 opacity-80">
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <p class="text-2xl font-bold tracking-tighter">NGO</p>
+                            <p class="text-[10px] opacity-60">Nagoya (16:45)</p>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center px-4 mb-2">
+                            <p class="text-[10px] font-bold mb-1 text-orange-300">CX531</p>
+                            <div class="w-full h-[1px] bg-white/20 relative">
+                                <div class="absolute right-0 -top-1 border-t-4 border-l-4 border-transparent border-l-orange-400"></div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold tracking-tighter">TPE</p>
+                            <p class="text-[10px] opacity-60">Taipei (19:10)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 flex items-center gap-3 bg-white/10 p-3 rounded-xl border border-white/5">
+                    <i class="fas fa-bed text-blue-300"></i>
+                    <p class="text-[11px] font-light">三井花園飯店名古屋普米爾</p>
+                </div>
             </div>
-            
+
+            <div class="relative pl-8 timeline-line space-y-8">
+                <div>
+                    <div class="absolute -left-[25px] w-4 h-4 rounded-full bg-blue-500 border-4 border-white shadow-sm"></div>
+                    <h3 class="font-bold text-lg">3/19 <span class="text-slate-400 text-xs ml-1">(Thu)</span></h3>
+                    <div class="card p-4 mt-2"><p class="text-sm">抵達名古屋 / 市區探索</p></div>
+                </div>
+                <div>
+                    <div class="absolute -left-[25px] w-4 h-4 rounded-full bg-blue-500 border-4 border-white shadow-sm"></div>
+                    <h3 class="font-bold text-lg">3/20 <span class="text-slate-400 text-xs ml-1">(Fri)</span></h3>
+                    <div class="card p-4 mt-2"><p class="text-sm">樂高樂園 LEGOLAND</p></div>
+                </div>
+                <div class="relative">
+                    <div class="absolute -left-[25px] w-4 h-4 rounded-full bg-orange-500 border-4 border-white shadow-sm"></div>
+                    <h3 class="font-bold text-lg">3/21 <span class="text-slate-400 text-xs ml-1">(Sat)</span></h3>
+                    <a href="https://www.kkday.com/zh-tw/product/136327-central-japan-day-tour-from-nagoya-gassho-village-in-shirakawa-go-hida-takayama-old-town" target="_blank" class="block card p-4 mt-2 border-l-4 border-orange-500 hover:bg-orange-50 transition-colors">
+                        <div class="flex justify-between items-center">
+                            <p class="text-sm font-bold">合掌村一日遊 (KKday)</p>
+                            <i class="fas fa-external-link-alt text-[10px] text-orange-400"></i>
+                        </div>
+                        <p class="text-[11px] text-orange-600 mt-1">需在指定地點準時集合</p>
+                    </a>
+                </div>
+                <div>
+                    <div class="absolute -left-[25px] w-4 h-4 rounded-full bg-blue-500 border-4 border-white shadow-sm"></div>
+                    <h3 class="font-bold text-lg">3/22 <span class="text-slate-400 text-xs ml-1">(Sun)</span></h3>
+                    <div class="card p-4 mt-2 space-y-2 text-sm">
+                        <p>• Toyota 博物館</p>
+                        <p>• 名古屋城</p>
+                        <p>• Sky Promenade 夜景</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="absolute -left-[25px] w-4 h-4 rounded-full bg-blue-500 border-4 border-white shadow-sm"></div>
+                    <h3 class="font-bold text-lg">3/23 <span class="text-slate-400 text-xs ml-1">(Mon)</span></h3>
+                    <div class="card p-4 mt-2 space-y-2 text-sm">
+                        <p>• 大須商店街最後採買</p>
+                        <p>• 名古屋站週邊午餐</p>
+                        <p class="text-orange-600 font-bold">• 14:00 出發前往中部國際機場</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="transport" class="tab-content">
             <div class="space-y-4">
-                <div class="bg-white rounded-2xl p-4 card-shadow border-l-4 border-blue-500">
-                    <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">DAY 1</span>
-                    <p class="font-bold mt-2">抵達名古屋</p>
-                    <p class="text-sm text-gray-500">15:30 抵達 ➔ 飯店 Check-in ➔ 名古屋站周邊晚餐</p>
+                <div class="card p-4 border-l-4 border-slate-700">
+                    <h3 class="font-bold text-sm mb-1">Day 1: 機場 → 名古屋</h3>
+                    <p class="text-xs text-slate-500">名鐵 μ-SKY 特急 (約 28 分鐘)</p>
                 </div>
-                <div class="bg-white rounded-2xl p-4 card-shadow border-l-4 border-blue-500">
-                    <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">DAY 2</span>
-                    <p class="font-bold mt-2">樂高樂園一日遊</p>
+                <div class="card p-4 border-l-4 border-blue-400">
+                    <h3 class="font-bold text-sm mb-1">Day 2: 樂高樂園</h3>
+                    <p class="text-xs text-slate-500">青波線 (あおなみ線) 名古屋站發車</p>
+                </div>
+                <div class="card p-4 border-l-4 border-orange-400">
+                    <h3 class="font-bold text-sm mb-1">Day 3: 白川鄉/高山</h3>
+                    <p class="text-xs text-slate-500">KKday 專屬巴士 (ESCA 地下街集合)</p>
+                </div>
+                <div class="card p-4 border-l-4 border-yellow-400">
+                    <h3 class="font-bold text-sm mb-1">Day 4: 市區觀光</h3>
+                    <p class="text-xs text-slate-500">名古屋地下鐵 24 小時券 (¥760)</p>
+                </div>
+                <div class="card p-4 border-l-4 border-slate-700">
+                    <h3 class="font-bold text-sm mb-1">Day 5: 名古屋 → 機場</h3>
+                    <p class="text-xs text-slate-500">名鐵 μ-SKY 特急 (建議搭乘 14:20 班次)</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="guide" class="tab-content space-y-6">
-            <div class="bg-white rounded-2xl overflow-hidden card-shadow">
-                <div class="h-40 bg-gray-200 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80')"></div>
-                <div class="p-5">
-                    <h2 class="text-xl font-bold mb-2">名古屋城景點導覽</h2>
-                    <p class="text-sm text-gray-600 leading-relaxed">名古屋城是江戶時代德川家康下令建造的，屋頂上的金鯱是最著名的標誌。</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="wallet" class="tab-content space-y-6">
-            <div class="bg-white rounded-2xl p-5 card-shadow space-y-4">
-                <div class="flex justify-between items-center">
-                    <h3 class="font-bold text-sm">匯率換算 (1 TWD =)</h3>
-                    <div class="text-xs bg-gray-100 px-2 py-1 rounded flex items-center gap-1">
-                         <input id="rate-setting" type="number" value="4.76" class="w-10 bg-transparent font-bold text-blue-600 outline-none text-right"> JPY
+        <section id="guide" class="tab-content">
+            <div class="space-y-6">
+                <div class="card overflow-hidden">
+                    <div class="h-44 bg-[url('https://images.unsplash.com/photo-1590252631032-90928014526d?auto=format&fit=crop&w=800&q=80')] bg-cover bg-center"></div>
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold mb-2">名古屋城</h2>
+                        <p class="text-slate-600 text-xs leading-relaxed mb-4">由德川家康於1610年建造，是江戶幕府最重要的城堡之一，以屋頂上的金鯱聞名。</p>
+                        <div class="bg-blue-50 p-3 rounded-lg text-[11px] text-blue-800">💡 冷知識：名古屋城曾是日本第一個被指定為國寶的城堡。</div>
                     </div>
                 </div>
-                <input id="calc-input" type="text" placeholder="輸入金額 (如 1000+500)" class="w-full bg-gray-50 border-none rounded-xl p-4 text-lg font-mono focus:ring-2 focus:ring-blue-500">
-                <div class="flex justify-between items-end">
-                    <button onclick="calculateExchange()" class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold shadow-md active:scale-95 transition-transform">計算</button>
-                    <div class="text-right">
-                        <p class="text-xs text-gray-400">台幣約</p>
-                        <p id="calc-result" class="text-2xl font-bold text-blue-600">NT$ 0</p>
+                <div class="card p-5">
+                    <h2 class="text-lg font-bold mb-3">合掌村 (白川鄉)</h2>
+                    <div class="rounded-xl overflow-hidden mb-3 h-48 border">
+                        <iframe width="100%" height="100%" frameborder="0" src="https://www.openstreetmap.org/export/embed.html?bbox=136.890,36.260,136.915,36.280&layer=mapnik"></iframe>
+                    </div>
+                    <p class="text-slate-600 text-[11px] leading-relaxed italic">世界文化遺產，以其獨特的合掌造建築風格著稱。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="wallet" class="tab-content">
+            <div class="card p-5 mb-6 bg-slate-50">
+                <div class="flex items-center gap-2 mb-4">
+                    <input type="number" id="manual-rate" value="0.215" step="0.001" class="w-20 p-2 text-sm font-bold text-blue-600 outline-none">
+                    <span class="text-[10px] text-slate-400 uppercase tracking-wider">JPY/TWD 匯率</span>
+                </div>
+                <div class="space-y-3">
+                    <input type="text" id="calc-input" placeholder="輸入算式 (500+200*3)" class="w-full text-lg p-3 bg-white outline-none">
+                    <div class="flex justify-between items-center">
+                        <button onclick="calculateRate()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-bold">計算匯率</button>
+                        <div class="text-right">
+                            <p id="calc-result" class="text-xl font-black text-blue-600">NT$ 0</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id="expense-list" class="space-y-3">
+            <div class="card p-5 mb-6">
+                <h3 class="font-bold text-sm mb-4">新增記帳項目</h3>
+                <div class="grid grid-cols-2 gap-3 mb-3">
+                    <input type="text" id="expense-name" placeholder="品項名稱" class="bg-slate-50 p-3 text-sm outline-none border border-slate-100">
+                    <input type="number" id="expense-amount" placeholder="日幣金額" class="bg-slate-50 p-3 text-sm outline-none border border-slate-100">
                 </div>
-        </div>
-
-        <div id="lists" class="tab-content space-y-6">
-            <div class="bg-white rounded-2xl p-5 card-shadow">
-                <h3 class="font-bold mb-4">行前 CheckList</h3>
-                <div id="checklist-container" class="space-y-3"></div>
-            </div>
-            <div class="bg-white rounded-2xl p-5 card-shadow">
-                <h3 class="font-bold mb-4">個人備忘錄</h3>
-                <textarea id="memo-input" oninput="saveMemo()" class="w-full h-40 bg-gray-50 border-none rounded-xl p-4 text-sm focus:ring-2 focus:ring-blue-500" placeholder="在此輸入筆記..."></textarea>
-            </div>
-        </div>
-
-        <div id="info" class="tab-content">
-            <div class="bg-white rounded-2xl p-5 card-shadow space-y-4">
-                <h3 class="font-bold border-b pb-2 text-red-600">緊急聯絡</h3>
-                <p class="text-sm">日本報警：110</p>
-                <p class="text-sm">日本救護車：119</p>
-                <div class="p-3 bg-blue-50 rounded-xl text-xs text-blue-800">
-                    名古屋中文諮詢熱線：[填入電話]
+                <div class="flex gap-3 h-12">
+                    <label class="flex-1 flex items-center justify-center gap-2 border-2 border-dashed border-slate-200 rounded-xl relative overflow-hidden text-slate-400 text-xs cursor-pointer">
+                        <i class="fas fa-camera"></i> 拍照/上傳
+                        <input type="file" accept="image/*" id="expense-img" class="hidden" onchange="handleImage(this)">
+                        <img id="img-preview" class="absolute inset-0 w-full h-full object-cover hidden">
+                    </label>
+                    <button onclick="addExpense()" class="bg-slate-900 text-white px-6 rounded-xl"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
-        </div>
+            <div id="expense-list" class="space-y-3"></div>
+        </section>
+
+        <section id="lists" class="tab-content">
+            <div class="card p-5 mb-6">
+                <h3 class="font-bold mb-4 text-sm flex items-center gap-2"><i class="fas fa-check-circle text-blue-500"></i> 行前檢查</h3>
+                <div id="checklist" class="space-y-2"></div>
+            </div>
+            <div class="card p-5">
+                <h3 class="font-bold mb-4 text-sm">個人備忘錄</h3>
+                <textarea id="memo-input" class="w-full h-32 bg-slate-50 p-4 text-xs outline-none mb-3" placeholder="貼上連結或記事..."></textarea>
+                <div id="memo-links" class="flex flex-wrap gap-2 mb-3"></div>
+                <button onclick="saveMemo()" class="w-full bg-slate-900 text-white py-3 rounded-xl text-xs font-bold">儲存</button>
+            </div>
+        </section>
+
+        <section id="info" class="tab-content">
+            <div class="card p-5 mb-6 bg-red-50 border-red-100">
+                <h3 class="font-bold text-red-600 mb-3 text-sm">緊急聯絡</h3>
+                <div class="text-xs space-y-2">
+                    <p class="flex justify-between"><span>警察局</span><b>110</b></p>
+                    <p class="flex justify-between"><span>救護車</span><b>119</b></p>
+                    <p class="pt-2 border-t border-red-100 text-[10px]">駐大阪辦事處: +81-6-6443-8481</p>
+                </div>
+            </div>
+            <div class="card p-5">
+                <h3 class="font-bold mb-3 text-sm text-slate-600">實用資訊</h3>
+                <div class="space-y-3">
+                    <a href="https://www.jma.go.jp/" class="block p-3 bg-slate-50 rounded-lg text-xs font-medium">日本氣象廳預報</a>
+                    <div class="p-3 bg-slate-50 rounded-lg text-[11px] leading-relaxed">
+                        • 免稅規定：一般物品及消耗品需滿 ¥5000<br>
+                        • 禁帶物品：肉類製品、鮮果嚴禁回台
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 glass-nav border-t flex justify-around items-center px-2 py-3 safe-bottom z-50">
-        <button onclick="showTab('plan', '行程表 PLAN', this)" class="nav-item flex flex-col items-center gap-1 text-blue-600">
-            <i class="fa-solid fa-calendar-day text-xl"></i>
-            <span class="text-[10px] font-bold">PLAN</span>
-        </button>
-        <button onclick="showTab('guide', '深度導覽 GUIDE', this)" class="nav-item flex flex-col items-center gap-1 text-gray-400">
-            <i class="fa-solid fa-map-location-dot text-xl"></i>
-            <span class="text-[10px] font-bold">GUIDE</span>
-        </button>
-        <button onclick="showTab('wallet', '錢包記帳 WALLET', this)" class="nav-item flex flex-col items-center gap-1 text-gray-400">
-            <i class="fa-solid fa-wallet text-xl"></i>
-            <span class="text-[10px] font-bold">WALLET</span>
-        </button>
-        <button onclick="showTab('lists', '清單備忘 LISTS', this)" class="nav-item flex flex-col items-center gap-1 text-gray-400">
-            <i class="fa-solid fa-list-check text-xl"></i>
-            <span class="text-[10px] font-bold">LISTS</span>
-        </button>
-        <button onclick="showTab('info', '實用資訊 INFO', this)" class="nav-item flex flex-col items-center gap-1 text-gray-400">
-            <i class="fa-solid fa-circle-info text-xl"></i>
-            <span class="text-[10px] font-bold">INFO</span>
-        </button>
+    <nav class="fixed bottom-0 left-0 right-0 glass-nav z-[100] safe-area-bottom">
+        <div class="max-w-md mx-auto flex justify-around items-center h-16">
+            <button onclick="showTab('plan', this)" class="nav-item flex flex-col items-center gap-1 text-blue-600">
+                <i class="fas fa-calendar-day text-lg"></i>
+                <span class="text-[8px] font-bold">PLAN</span>
+            </button>
+            <button onclick="showTab('transport', this)" class="nav-item flex flex-col items-center gap-1 text-slate-400">
+                <i class="fas fa-train text-lg"></i>
+                <span class="text-[8px] font-bold">TRANS</span>
+            </button>
+            <button onclick="showTab('guide', this)" class="nav-item flex flex-col items-center gap-1 text-slate-400">
+                <i class="fas fa-book-open text-lg"></i>
+                <span class="text-[8px] font-bold">GUIDE</span>
+            </button>
+            <button onclick="showTab('wallet', this)" class="nav-item flex flex-col items-center gap-1 text-slate-400">
+                <i class="fas fa-yen-sign text-lg"></i>
+                <span class="text-[8px] font-bold">WALLET</span>
+            </button>
+            <button onclick="showTab('lists', this)" class="nav-item flex flex-col items-center gap-1 text-slate-400">
+                <i class="fas fa-list-check text-lg"></i>
+                <span class="text-[8px] font-bold">LISTS</span>
+            </button>
+            <button onclick="showTab('info', this)" class="nav-item flex flex-col items-center gap-1 text-slate-400">
+                <i class="fas fa-info-circle text-lg"></i>
+                <span class="text-[8px] font-bold">INFO</span>
+            </button>
+        </div>
     </nav>
 
-    <script src="nagoya.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
