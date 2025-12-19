@@ -1,98 +1,117 @@
-/* nagoya.js */
+let currentImgBase64 = "";
 
-// 1. 切換分頁
-window.showTab = function(tabId, title, element) {
-    // 隱藏所有分頁
-    const contents = document.querySelectorAll('.tab-content');
-    contents.forEach(c => {
-        c.classList.remove('active');
-        c.style.display = 'none';
+// 分頁切換
+function showTab(tabId, el) {
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(nav => {
+        nav.classList.replace('text-blue-600', 'text-slate-400');
     });
+    document.getElementById(tabId).classList.add('active');
+    el.classList.replace('text-slate-400', 'text-blue-600');
+    document.getElementById('page-title').innerText = tabId.toUpperCase();
+    window.scrollTo(0,0);
+}
 
-    // 顯示目標分頁
-    const target = document.getElementById(tabId);
-    if (target) {
-        target.classList.add('active');
-        target.style.display = 'block';
-    }
-
-    // 更新標題
-    document.getElementById('page-title').innerText = title;
-
-    // 更新選單按鈕顏色
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('text-blue-600');
-        item.classList.add('text-gray-400');
-    });
-
-    if (element) {
-        element.classList.remove('text-gray-400');
-        element.classList.add('text-blue-600');
-    }
-
-    window.scrollTo(0, 0);
-};
-
-// 2. 匯率計算
-window.calculateExchange = function() {
-    const inputVal = document.getElementById('calc-input').value;
-    const rate = parseFloat(document.getElementById('rate-setting').value) || 4.76;
-    const resultDisplay = document.getElementById('calc-result');
-
+// 匯率計算
+function calculateRate() {
+    const input = document.getElementById('calc-input').value;
+    const rate = parseFloat(document.getElementById('manual-rate').value) || 0.215;
     try {
-        // 安全運算
-        const sanitized = inputVal.replace(/[^-()\d/*+.]/g, '');
-        const sum = eval(sanitized);
-        const twd = Math.round(sum / rate);
-        resultDisplay.innerText = `NT$ ${twd.toLocaleString()}`;
-    } catch (e) {
-        alert("請輸入數字或算式 (例如: 1500+200)");
-    }
-};
+        const result = eval(input.replace(/[^-()\d/*+.]/g, ''));
+        document.getElementById('calc-result').innerText = `NT$ ${Math.round(result * rate).toLocaleString()}`;
+    } catch (e) { alert("計算格式錯誤"); }
+}
 
-// 3. 清單與備忘錄
-const defaultItems = ['護照', '日幣現鈔', 'Visit Japan Web QR', '充電線', '感冒/止痛藥'];
+// 處理圖片上傳
+function handleImage(input) {
+    const file = input.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const scale = 300 / img.width;
+            canvas.width = 300;
+            canvas.height = img.height * scale;
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            currentImgBase64 = canvas.toDataURL('image/jpeg', 0.5);
+            document.getElementById('img-preview').src = currentImgBase64;
+            document.getElementById('img-preview').classList.remove('hidden');
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
 
-window.renderChecklist = function() {
-    const container = document.getElementById('checklist-container');
-    if (!container) return;
-    
-    const saved = JSON.parse(localStorage.getItem('nagoya_checklist') || '{}');
-    
-    container.innerHTML = defaultItems.map(item => `
-        <label class="flex items-center gap-3 bg-gray-50 p-4 rounded-xl cursor-pointer active:bg-gray-100">
-            <input type="checkbox" onchange="saveCheckState('${item}', this.checked)" ${saved[item] ? 'checked' : ''}>
-            <span class="text-sm ${saved[item] ? 'line-through text-gray-400' : 'text-gray-800'}">${item}</span>
-        </label>
+// 新增記帳
+function addExpense() {
+    const name = document.getElementById('expense-name').value;
+    const amount = document.getElementById('expense-amount').value;
+    const rate = parseFloat(document.getElementById('manual-rate').value) || 0.215;
+    if(!name || !amount) return;
+    const expenses = JSON.parse(localStorage.getItem('nagoya_expenses') || '[]');
+    expenses.unshift({ id: Date.now(), name, jpy: amount, twd: Math.round(amount*rate), img: currentImgBase64 });
+    localStorage.setItem('nagoya_expenses', JSON.stringify(expenses));
+    document.getElementById('expense-name').value = "";
+    document.getElementById('expense-amount').value = "";
+    document.getElementById('img-preview').classList.add('hidden');
+    currentImgBase64 = "";
+    renderExpenses();
+}
+
+function renderExpenses() {
+    const expenses = JSON.parse(localStorage.getItem('nagoya_expenses') || '[]');
+    document.getElementById('expense-list').innerHTML = expenses.map(ex => `
+        <div class="card p-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                ${ex.img ? `<img src="${ex.img}" class="w-10 h-10 rounded object-cover">` : '<div class="w-10 h-10 bg-slate-100 rounded"></div>'}
+                <div><p class="text-xs font-bold">${ex.name}</p><p class="text-[10px] text-slate-400">¥${ex.jpy} / NT$${ex.twd}</p></div>
+            </div>
+            <button onclick="deleteEx(${ex.id})" class="text-slate-300 px-2 text-sm">×</button>
+        </div>
     `).join('');
-};
+}
 
-window.saveCheckState = function(item, isChecked) {
-    const saved = JSON.parse(localStorage.getItem('nagoya_checklist') || '{}');
-    saved[item] = isChecked;
-    localStorage.setItem('nagoya_checklist', JSON.stringify(saved));
+function deleteEx(id) {
+    const expenses = JSON.parse(localStorage.getItem('nagoya_expenses') || '[]').filter(e => e.id !== id);
+    localStorage.setItem('nagoya_expenses', JSON.stringify(expenses));
+    renderExpenses();
+}
+
+// 清單邏輯
+const defaultList = ["護照", "網卡", "日幣", "信用卡", "保險憑證", "行動電源"];
+function renderChecklist() {
+    let list = JSON.parse(localStorage.getItem('nagoya_check'));
+    if(!list) list = defaultList.map(t => ({t, c: false}));
+    document.getElementById('checklist').innerHTML = list.map((item, i) => `
+        <div class="flex items-center gap-2 text-xs">
+            <input type="checkbox" ${item.c?'checked':''} onchange="toggleCheck(${i})">
+            <span class="${item.c?'line-through text-slate-300':''}">${item.t}</span>
+        </div>
+    `).join('');
+    localStorage.setItem('nagoya_check', JSON.stringify(list));
+}
+function toggleCheck(i) {
+    const list = JSON.parse(localStorage.getItem('nagoya_check'));
+    list[i].c = !list[i].c;
+    localStorage.setItem('nagoya_check', JSON.stringify(list));
     renderChecklist();
-};
+}
 
-window.saveMemo = function() {
-    const text = document.getElementById('memo-input').value;
-    localStorage.setItem('nagoya_memo', text);
-};
+// 備忘錄邏輯
+function saveMemo() {
+    const val = document.getElementById('memo-input').value;
+    localStorage.setItem('nagoya_memo', val);
+    const urls = val.match(/(https?:\/\/[^\s]+)/g) || [];
+    document.getElementById('memo-links').innerHTML = urls.map(u => `<a href="${u}" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded-full text-[10px]">開啟連結</a>`).join('');
+}
 
-// 4. 初始化
-window.onload = function() {
-    console.log("名古屋助手啟動...");
-    
-    // 預設顯示第一頁
-    const firstBtn = document.querySelector('.nav-item');
-    showTab('plan', '行程表 PLAN', firstBtn);
-    
-    // 載入清單
+window.onload = () => {
+    renderExpenses();
     renderChecklist();
-    
-    // 載入備忘錄
-    const savedMemo = localStorage.getItem('nagoya_memo');
-    if (savedMemo) {
-        document.getElementById('memo-input').value = savedMemo;
-    }
+    const m = localStorage.getItem('nagoya_memo') || "";
+    document.getElementById('memo-input').value = m;
+    saveMemo();
+    document.getElementById('manual-rate').oninput = (e) => document.getElementById('rate-display').innerText = e.target.value;
 };
