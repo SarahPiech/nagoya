@@ -2,53 +2,27 @@
 body { 
     font-family: 'Inter', 'Noto Sans TC', sans-serif; 
     background-color: #F8FAFC; 
-    -webkit-tap-highlight-color: transparent; 
-    color: #1E293B;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1.5;
 }
 
-/* --- 標準屬性相容性 (Appearance) --- */
-/* 移除所有預設的外觀樣式，確保在各平台顯示一致 */
-input, textarea, select, button { 
-    -webkit-appearance: none;   /* Chrome, Safari, iOS */
-    -moz-appearance: none;      /* Firefox */
-    appearance: none;           /* Standard 標準屬性 */
-    outline: none;
-}
-
-/* 恢復 Checkbox 的基本功能顯示 */
-input[type="checkbox"] {
-    -webkit-appearance: checkbox;
-    -moz-appearance: checkbox;
-    appearance: checkbox;
-    width: auto;
-    cursor: pointer;
-}
-
-/* --- 導覽列與模糊效果 --- */
+/* --- 導覽列與分頁控制 --- */
 .glass-nav { 
-    background: rgba(255, 255, 255, 0.85); 
+    background: rgba(255, 255, 255, 0.9); 
     backdrop-filter: blur(12px); 
-    -webkit-backdrop-filter: blur(12px); /* Safari 必要 */
+    -webkit-backdrop-filter: blur(12px);
     border-top: 1px solid rgba(0,0,0,0.05); 
 }
 
-/* --- 分頁與動畫 --- */
-.tab-content { 
-    display: none; 
-    padding-bottom: 120px; 
-}
-
-.tab-content.active { 
-    display: block; 
-    animation: fadeIn 0.3s ease-out; 
-}
+.tab-content { display: none; padding-bottom: 120px; }
+.tab-content.active { display: block; animation: fadeIn 0.3s ease-out; }
 
 @keyframes fadeIn { 
     from { opacity: 0; transform: translateY(10px); } 
     to { opacity: 1; transform: translateY(0); } 
 }
 
-/* --- 卡片設計 --- */
+/* --- 卡片通用樣式 --- */
 .card { 
     background: white; 
     border-radius: 20px; 
@@ -57,44 +31,37 @@ input[type="checkbox"] {
     overflow: hidden;
 }
 
-.flight-card { 
-    background: linear-gradient(135deg, #1E293B 0%, #334155 100%); 
-}
+.flight-card { background: linear-gradient(135deg, #1E293B 0%, #334155 100%); }
 
-/* --- 時間軸 (Timeline) --- */
-.timeline-line {
-    position: relative;
-}
-
+/* --- 時間軸設計 --- */
 .timeline-line::before { 
     content: ''; 
-    position: absolute; 
-    left: 15px; 
-    top: 0; 
-    bottom: 0; 
-    width: 2px; 
+    position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; 
     background: #E2E8F0; 
-    z-index: 0;
 }
 
-/* 確保內容在線條上方 */
-.timeline-line > div, 
-.timeline-line > a { 
-    position: relative; 
-    z-index: 10; 
+/* --- iPhone 安全區域處理 --- */
+.safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+/* --- 文字與縮排對齊精細調整 --- */
+.space-y-2 p { 
+    margin-bottom: 0.2rem; 
+    padding-left: 0.2rem; /* 讓文字不緊貼邊緣 */
 }
 
-/* --- 安全區域 (iPhone X+) --- */
-.safe-area-bottom { 
-    padding-bottom: env(safe-area-inset-bottom); 
+/* 標題行不受 padding-left 影響 */
+.space-y-2 p.flex {
+    padding-left: 0;
 }
 
-/* --- 其他 --- */
-#img-preview {
-    border-radius: 12px;
+/* 確保所有 bullet point 維持統一縮排 */
+#plan p {
+    text-indent: 0; 
 }
 
-textarea#memo-input {
-    resize: none;
-    border: 1px solid #F1F5F9;
+/* 地圖容器樣式 */
+#route-map {
+    width: 100%;
+    height: 100%;
+    min-height: 224px;
 }
