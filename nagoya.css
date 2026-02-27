@@ -1,3 +1,9 @@
+html, body {
+    margin: 0;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
 /* --- 基礎設定 --- */
 body { 
     font-family: 'Inter', 'Noto Sans TC', sans-serif; 
