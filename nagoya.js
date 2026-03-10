@@ -167,3 +167,246 @@ window.onload = () => {
         initRouteMap();
     }, 100);
 };
+
+// Transport cards modal
+const dayDetails = {
+    day1: '【交通手段】\n1）名古屋鐵道 μ-SKY 特急\n2）目的地：名鐵名古屋站\n\n【路線】\n1）沿著「電車」的指標走，約 2 分鐘抵達名鐵車站\n\n【售票機操作】\n1）大人小孩同一票價：¥980 + ¥450 = ¥1,430\n2）不吃台灣信用卡，請用現金購買\n3）選「特別車票きっぷチケット」\n4）選「片道きっぷ＋特別車両券」（單程票＋特別券，現在乘坐）\n5）選擇目的地「名鐵名古屋」\n6）會吐出 2 張票：大張＝指定席券（特別車票）、小張＝乘車券\n\n【搭車】\n1）搭 μ-SKY，約每小時 1 班月台，為專用月台\n2）進站時只需要小張的乘車券放入自動改札口即可',
+    day2: '【交通手段】\n1）地鐵：東山線\n2）東山公園站 3 號出口\n\n【出口小提醒】\n1）動物園：「東山公園站」 3 號出口\n2）植物園：「星丘站」6 號出口\n3）本園、植物園、北園 (帥哥猩猩)',
+    day3: '【交通手段】\n1）地鐵：名城公園站\n2）地鐵：榮站',
+    day4: '【交通手段】\n1）名古屋臨海高速鐵道（青波線）\n2）目的地：金城埠頭站（Kinjo-futo）\n\n【樂高樂園小提醒】\n1）園區共 7 大區，可順時針或逆時針遊玩\n2）Adventure Area 可能會玩到全身濕，帶衣服\n3）禁止攜帶食物入場\n4）記得自備飲用水，園內販賣機價格比外面貴\n\n【Sky Promenade】\n1）從名鐵名古屋站步行前往 MIDLAND SQUARE\n2）入口：MIDLAND SQUARE 42F\n3）44～46 樓皆可自由參觀，憑票從扶梯上樓\n4）5 樓 Midland Square Cinema 電影院有免費觀景窗\n5）小孩於週末及國定假日免費入場',
+    day5: '【交通手段】\n1）名古屋鐵道（名鐵）\n2）路線：名鐵名古屋站 → 中部國際機場'
+};
+
+function initTransportModal() {
+    const transportSection = document.getElementById('transport');
+    if (!transportSection) return;
+
+    const cards = transportSection.querySelectorAll('.card[data-day]');
+    
+    const modal = document.getElementById('transport-modal');
+    const modalTitle = document.getElementById('transport-modal-title');
+    const modalBody = document.getElementById('transport-modal-body');
+    const closeBtn = document.getElementById('transport-modal-close');
+
+    if (!modal || !modalTitle || !modalBody || !closeBtn) return;
+
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            const dayKey = card.getAttribute('data-day');
+            const titleEl = card.querySelector('h3');
+
+            modalTitle.innerText = titleEl ? titleEl.innerText : 'Detail';
+            modalBody.innerText = dayDetails[dayKey] || 'No details yet.';
+
+            modal.classList.remove('hidden');
+        });
+    });
+
+    const hideModal = () => {
+        modal.classList.add('hidden');
+    };
+
+    closeBtn.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) hideModal();
+    });
+}
+
+// Initialize transport modal after DOM ready
+window.addEventListener('load', initTransportModal);
+
+function openMetroMap(e) {
+    if (e && e.stopPropagation) {
+        e.stopPropagation();
+    }
+    const modal = document.getElementById('metro-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+    }
+}
+
+function closeMetroMap() {
+    const modal = document.getElementById('metro-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+function openAonamiMap(e) {
+    if (e && e.stopPropagation) {
+        e.stopPropagation();
+    }
+    const modal = document.getElementById('aonami-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+    }
+}
+
+function closeAonamiMap() {
+    const modal = document.getElementById('aonami-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+// Ticket modal
+const ticketDetails = {
+    'day1-transport': {
+        title: 'Day 1 交通票：機場 → 名鐵名古屋站（名鐵 μ-SKY）',
+        sections: [
+            {
+                title: '',
+                adult: '¥1,430（可填入實際 μ-SKY 大人票價）',
+                child: '¥1,430（可填入實際 μ-SKY 小孩票價）'
+            }
+        ]
+    },
+    'day2-transport': {
+        title: 'Day 2 交通票：地鐵 東山線',
+        sections: [
+            {
+                title: '地鐵 東山線 名古屋站 ↔ 東山公園站',
+                adult: '¥760/一日券（可填入大人來回票價）',
+                child: '¥380/一日券（可填入小孩來回票價）'
+            },
+            {
+                title: '地鐵 東山線 名古屋站 ↔ 星丘站',
+                adult: '¥760/一日券（可填入大人來回票價）',
+                child: '¥380/一日券（可填入小孩來回票價）'
+            }
+        ]
+    },
+    'day2-spot': {
+        title: 'Day 2 景點票：東山動植物園門票',
+        sections: [
+            {
+                title: '',
+                adult: '¥500 (持名古屋地鐵一日券 = 8折 ¥400_（可填入 動植物園 大人門票）',
+                child: '初中以下無料（可填入 動植物園 小孩門票）'
+            }
+        ]
+    },
+    'day3-transport': {
+        title: 'Day 3 交通票：地鐵 名城公園站 / 榮站',
+        sections: [
+            {
+                title: '地鐵 名城線 名古屋站 ↔ 名城公園站',
+                adult: '¥760/一日券（可填入大人來回票價）',
+                child: '¥380/一日券（可填入小孩來回票價）'
+            },
+            {
+                title: '地鐵 東山線／名城線 名古屋站 ↔ 榮站',
+                adult: '¥760/一日券（可填入大人來回票價）',
+                child: '¥380/一日券（可填入小孩來回票價）'
+            }
+        ]
+    },
+    'day3-spot': {
+        title: 'Day 3 景點票：名古屋城',
+        sections: [
+            {
+                title: '',
+                adult: '¥500（可填入 名古屋城 大人門票）',
+                child: '初中以下無料（可填入 名古屋城 小孩門票）'
+            }
+        ]
+    },
+    'day4-transport': {
+        title: 'Day 4 交通票：青波線 名古屋站 ↔ 金城埠頭站',
+        sections: [
+            {
+                title: '',
+                adult: '¥360/一日券¥800（可填入 青波線 大人單程 / 來回票價）',
+                child: '¥180/一日券¥400（可填入 青波線 小孩單程 / 來回票價）'
+            }
+        ]
+    },
+    'day4-legoland': {
+        title: 'Day 4 景點票：樂高樂園 LEGOLAND',
+        sections: [
+            {
+                title: '',
+                adult: '¥7,100（可填入 樂高樂園 大人門票）',
+                child: '¥4,700（可填入 樂高樂園 小孩門票）'
+            }
+        ]
+    },
+    'day4-sky': {
+        title: 'Day 4 景點票：Sky Promenade 展望台',
+        sections: [
+            {
+                title: '',
+                adult: '¥1,000（可填入 Sky Promenade 大人票價）',
+                child: '¥300, 週末無料（可填入 Sky Promenade 小孩票價）'
+            }
+        ]
+    },
+    
+	'day5-toyota': {
+        title: 'Day 5 景點票：TOYOTA',
+        sections: [
+            {
+                title: '',
+                adult: '¥1,000（可填入 TOYOTA 大人票價）',
+                child: '¥200, 週末無料（可填入 TOYOTA 小孩票價）'
+            }
+        ]
+    },
+		
+	'day5-transport': {
+        title: 'Day 5 交通票：名鐵名古屋站 → 機場（名鐵 μ-SKY）',
+        sections: [
+            {
+                title: '',
+                adult: '¥1,430（可填入 回程 μ-SKY 大人票價）',
+                child: '¥1,430（可填入 回程 μ-SKY 小孩票價）'
+            }
+        ]
+    }
+};
+
+function initTicketModal() {
+    const section = document.getElementById('ticket');
+    if (!section) return;
+
+    const items = section.querySelectorAll('.ticket-item[data-ticket]');
+    const modal = document.getElementById('ticket-modal');
+    const titleEl = document.getElementById('ticket-modal-title');
+    const subtitleEl = document.getElementById('ticket-modal-subtitle');
+    const contentEl = document.getElementById('ticket-modal-content');
+
+    if (!modal || !titleEl || !subtitleEl || !contentEl) return;
+
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            const key = item.getAttribute('data-ticket');
+            const data = ticketDetails[key];
+            if (!data) return;
+
+            const parts = (data.title || '').split('：');
+            titleEl.innerText = parts[0] ? parts[0] + '：' : '';
+            subtitleEl.innerText = parts[1] || '';
+
+            const sections = data.sections || [];
+            contentEl.innerHTML = sections.map((sec, idx) => `
+                <div class="space-y-1">
+                    ${sec.title ? `<p class="font-semibold text-slate-900">${sec.title}</p>` : ''}
+                    <p><span class="font-semibold text-slate-900">大人：</span>${sec.adult || '—'}</p>
+                    <p><span class="font-semibold text-slate-900">小孩：</span>${sec.child || '—'}</p>
+                </div>
+                ${idx < sections.length - 1 ? '<hr class="border-slate-100">' : ''}
+            `).join('');
+
+            modal.classList.remove('hidden');
+        });
+    });
+}
+
+function closeTicketModal() {
+    const modal = document.getElementById('ticket-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+window.addEventListener('load', initTicketModal);
