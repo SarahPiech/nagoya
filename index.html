@@ -36,18 +36,18 @@
                 <div class="mb-6 relative z-10">
                     <div class="flex justify-between items-end">
                         <div>
-                            <p class="text-3xl font-bold tracking-tighter">TPE</p>
-                            <p class="text-[10px] opacity-60">Taipei (14:55)</p>
+                            <p class="text-3xl font-bold tracking-tighter">ABC</p>
+                            <p class="text-[10px] opacity-60">Abc (Time)</p>
                         </div>
                         <div class="flex-1 flex flex-col items-center px-4 mb-2">
-                            <p class="text-[10px] font-bold mb-1 text-blue-300">JX838</p>
+                            <p class="text-[10px] font-bold mb-1 text-blue-300">FLY</p>
                             <div class="w-full h-[1px] bg-white/20 relative">
                                 <div class="absolute right-0 -top-1 border-t-4 border-l-4 border-transparent border-l-blue-400"></div>
                             </div>
                         </div>
                         <div class="text-right">
                             <p class="text-3xl font-bold tracking-tighter">NGO</p>
-                            <p class="text-[10px] opacity-60">Nagoya (18:30)</p>
+                            <p class="text-[10px] opacity-60">TICKET GO</p>
                         </div>
                     </div>
                 </div>
@@ -55,17 +55,17 @@
                     <div class="flex justify-between items-end">
                         <div>
                             <p class="text-3xl font-bold tracking-tighter">NGO</p>
-                            <p class="text-[10px] opacity-60">Nagoya (19:40)</p>
+                            <p class="text-[10px] opacity-60">TICKET BACK</p>
                         </div>
                         <div class="flex-1 flex flex-col items-center px-4 mb-2">
-                            <p class="text-[10px] font-bold mb-1 text-orange-300">JX839</p>
+                            <p class="text-[10px] font-bold mb-1 text-orange-300">FLY</p>
                             <div class="w-full h-[1px] bg-white/20 relative">
                                 <div class="absolute right-0 -top-1 border-t-4 border-l-4 border-transparent border-l-orange-400"></div>
                             </div>
                         </div>
                         <div class="text-right">
-                            <p class="text-3xl font-bold tracking-tighter">TPE</p>
-                            <p class="text-[10px] opacity-60">Taipei (22:15)</p>
+                            <p class="text-3xl font-bold tracking-tighter">ABC</p>
+                            <p class="text-[10px] opacity-60">Abc (Time)</p>
                         </div>
                     </div>
                 </div>
@@ -120,49 +120,166 @@
 
         <section id="transport" class="tab-content">
             <div class="space-y-4">
-                <div class="card p-4 border-l-4 border-slate-700">
+                <div class="card p-4 border-l-4 border-slate-700 cursor-pointer" data-day="day1">
                     <h3 class="font-bold text-sm mb-1">Day 1: 機場 → 名古屋</h3>
                     <p class="text-xs text-slate-500">[名鐵] μ-SKY 特急 (約 28 分鐘)</p>
                 </div>
-                <div class="card p-4 border-l-4 border-blue-400">
+                <div class="card p-4 border-l-4 border-blue-400 cursor-pointer" data-day="day2">
                     <h3 class="font-bold text-sm mb-1">Day 2: 東山動植物園</h3>
                     <p class="text-xs text-slate-500">[地鐵] 東山公園站_3號出口 or 星之丘站_6號出口</p>
+                    <div class="mt-2 flex justify-end">
+                        <button type="button" class="text-[10px] text-blue-500 flex items-center gap-1" onclick="openMetroMap(event)">
+                            <i class="fas fa-subway"></i>
+                            <span>地鐵圖</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="card p-4 border-l-4 border-orange-400">
-                    <h3 class="font-bold text-sm mb-1">Day 3: 名城公園 + 名古屋城/榮商圈</h3>
+                <div class="card p-4 border-l-4 border-orange-400 cursor-pointer" data-day="day3">
+                    <h3 class="font-bold text-sm mb-1">Day 3: 名城公園 → 名古屋城 → 榮商圈</h3>
                     <p class="text-xs text-slate-500">[地鐵] 名城公園站 ; [地鐵] 榮站 or 矢場町站</p>
+                    <div class="mt-2 flex justify-end">
+                        <button type="button" class="text-[10px] text-blue-500 flex items-center gap-1" onclick="openMetroMap(event)">
+                            <i class="fas fa-subway"></i>
+                            <span>地鐵圖</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="card p-4 border-l-4 border-yellow-400">
-                    <h3 class="font-bold text-sm mb-1">Day 4: 樂高樂園/Sky Promenade 夜景</h3>
+                <div class="card p-4 border-l-4 border-yellow-400 cursor-pointer" data-day="day4">
+                    <h3 class="font-bold text-sm mb-1">Day 4: 樂高樂園 → Sky Promenade 夜景</h3>
                     <p class="text-xs text-slate-500">青波線 (あおなみ線)_from 名古屋站發車 to 金城埠頭車站 (Kinjo-futo)</p>
+                    <div class="mt-2 flex justify-end">
+                        <button type="button" class="text-[10px] text-blue-500 flex items-center gap-1" onclick="openAonamiMap(event)">
+                            <i class="fas fa-route"></i>
+                            <span>青波線路線圖</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="card p-4 border-l-4 border-slate-700">
-                    <h3 class="font-bold text-sm mb-1">Day 5: 名古屋 → 機場</h3>
-                    <p class="text-xs text-slate-500">名鐵 μ-SKY 特急 (建議搭乘 16:00 班次)</p>
+                <div class="card p-4 border-l-4 border-slate-700 cursor-pointer" data-day="day5">
+                    <h3 class="font-bold text-sm mb-1">Day 5: 名古屋 → TOYOTA → 機場</h3>
+                    <p class="text-xs text-slate-500">名鐵 本線【榮生站】</p>
+					<p class="text-xs text-slate-500">名鐵 空港線【中部國際空港(μ-SKY 特急)】 (建議搭乘 16:00 班次)</p>
                 </div>
             </div>
         </section>
 
-        <section id="guide" class="tab-content">
-            <div class="space-y-6">
-                <div class="card overflow-hidden">
-                    <a href="https://zh.wikipedia.org/zh-tw/%E5%90%8D%E5%8F%A4%E5%B1%8B%E5%9F%8E" target="_blank" class="block">
-                        <div class="h-44 bg-slate-200 overflow-hidden">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nagoya_Castle_20170415.jpg/640px-Nagoya_Castle_20170415.jpg" alt="名古屋城" class="w-full h-full object-cover">
-                        </div>
-                    </a>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <h2 class="text-xl font-bold">名古屋城 <span class="text-slate-400 text-sm font-normal ml-1">なごやじょう</span></h2>
-                            <a href="https://zh.wikipedia.org/zh-tw/%E5%90%8D%E5%8F%A4%E5%B1%8B%E5%9F%8E" target="_blank" class="text-blue-500 text-xs">Wiki <i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                        <p class="text-slate-600 text-xs leading-relaxed mb-4">由德川家康於1610年建造，是江戶幕府最重要的城堡之一，以屋頂上的金鯱聞名。</p>
-                        <div class="bg-blue-50 p-3 rounded-lg text-[11px] text-blue-800">💡 日本第一個國寶城堡。</div>
+        <!-- Transport Detail Modal -->
+        <div id="transport-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[200] hidden">
+            <div class="bg-white rounded-3xl shadow-2xl w-11/12 max-w-sm p-6 relative">
+                <button id="transport-modal-close" class="absolute right-4 top-4 text-slate-400 text-lg">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 id="transport-modal-title" class="text-lg font-bold mb-3">Day 1</h3>
+                <p id="transport-modal-body" class="text-sm text-slate-600 leading-relaxed">
+                    This is Day 1 details
+                </p>
+            </div>
+        </div>
+
+        <!-- Metro Map Modal -->
+        <div id="metro-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[210] hidden">
+            <div class="bg-white rounded-3xl shadow-2xl w-11/12 max-w-md p-4 relative">
+                <button type="button" class="absolute right-3 top-3 text-slate-400 text-lg" onclick="closeMetroMap()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 class="text-sm font-bold mb-2">名古屋地鐵圖</h3>
+                <div class="max-h-[70vh] overflow-auto">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/%E5%90%8D%E5%8F%A4%E5%B1%8B%E5%B8%82%E7%87%9F%E5%9C%B0%E4%B8%8B%E9%90%B5%E8%B7%AF%E7%B7%9A%E5%9C%96.png"
+                         alt="名古屋市營地下鐵路線圖"
+                         class="w-full h-auto rounded-xl">
+                </div>
+            </div>
+        </div>
+
+        <!-- Aonami Line Map Modal -->
+        <div id="aonami-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[220] hidden">
+            <div class="bg-white rounded-3xl shadow-2xl w-11/12 max-w-md h-[80vh] p-4 relative flex flex-col">
+                <button type="button" class="absolute right-3 top-3 text-slate-400 text-lg" onclick="closeAonamiMap()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 class="text-sm font-bold mb-2 pr-8">青波線路線圖（官方網站）</h3>
+                <div class="flex-1 overflow-hidden rounded-xl border">
+                    <iframe
+                        src="https://www.aonamiline.co.jp/train"
+                        title="Aonami Line Route Map"
+                        class="w-full h-full border-0">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ticket Detail Modal -->
+        <div id="ticket-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[230] hidden">
+            <div class="bg-white rounded-3xl shadow-2xl w-11/12 max-w-sm p-6 relative">
+                <button type="button" class="absolute right-4 top-4 text-slate-400 text-lg" onclick="closeTicketModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 id="ticket-modal-title" class="text-lg font-bold leading-snug">Ticket</h3>
+                <p id="ticket-modal-subtitle" class="text-lg text-emerald-700 mt-1 mb-4"></p>
+                <div id="ticket-modal-content" class="space-y-3 text-sm text-slate-700"></div>
+            </div>
+        </div>
+
+        <section id="ticket" class="tab-content">
+            <div class="space-y-4">
+                <div class="card p-4">
+                    <h3 class="font-bold text-sm mb-1">Day 1: 機場 → 名古屋</h3>
+                    <p class="text-xs text-slate-500 mb-3">機場 ↔ 名鐵名古屋站</p>
+                    <div class="grid grid-cols-2 gap-2 text-[11px]">
+                        <button type="button" class="ticket-item px-2 py-2 rounded-lg border border-slate-200 flex items-center justify-center gap-1" data-ticket="day1-transport">
+                            <i class="fas fa-train text-slate-500"></i><span>交通票（名鐵 μ-SKY）</span>
+                        </button>
                     </div>
                 </div>
-                <div class="card p-5">
-                    <h2 class="text-lg font-bold mb-3">行程路線圖</h2>
-                    <div class="rounded-xl overflow-hidden h-56 border" id="route-map"></div>
+                <div class="card p-4">
+                    <h3 class="font-bold text-sm mb-1">Day 2: 東山動植物園</h3>
+                    <p class="text-xs text-slate-500 mb-3">地鐵 東山線 東山公園站 / 星丘站</p>
+                    <div class="grid grid-cols-2 gap-2 text-[11px]">
+                        <button type="button" class="ticket-item px-2 py-2 rounded-lg border border-slate-200 flex items-center justify-center gap-1" data-ticket="day2-transport">
+                            <i class="fas fa-train text-slate-500"></i><span>交通票（地鐵）</span>
+                        </button>
+                        <button type="button" class="ticket-item px-2 py-2 rounded-lg border border-blue-100 bg-blue-50 flex items-center justify-center gap-1" data-ticket="day2-spot">
+                            <i class="fas fa-tree text-blue-500"></i><span>景點票（東山動植物園）</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card p-4">
+                    <h3 class="font-bold text-sm mb-1">Day 3: 名城公園 → 名古屋城 → 榮</h3>
+                    <p class="text-xs text-slate-500 mb-3">地鐵 名城公園站 / 榮站</p>
+                    <div class="grid grid-cols-2 gap-2 text-[11px]">
+                        <button type="button" class="ticket-item px-2 py-2 rounded-lg border border-slate-200 flex items-center justify-center gap-1" data-ticket="day3-transport">
+                            <i class="fas fa-train text-slate-500"></i><span>交通票（地鐵）</span>
+                        </button>
+                        <button type="button" class="ticket-item px-2 py-2 rounded-lg border border-yellow-100 bg-yellow-50 flex items-center justify-center gap-1" data-ticket="day3-spot">
+                            <i class="fas fa-landmark text-yellow-500"></i><span>景點票（名古屋城）</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card p-4">
+                    <h3 class="font-bold text-sm mb-1">Day 4: 樂高樂園 → Sky Promenade</h3>
+                    <p class="text-xs text-slate-500 mb-3">青波線 金城埠頭站 / 名古屋站</p>
+                    <div class="grid grid-cols-2 gap-2 text-[11px]">
+                        <button type="button" class="ticket-item px-2 py-2 rounded-lg border border-slate-200 flex items-center justify-center gap-1" data-ticket="day4-transport">
+                            <i class="fas fa-train text-slate-500"></i><span>交通票（青波線）</span>
+                        </button>
+                        <button type="button" class="ticket-item px-2 py-2 rounded-lg border border-orange-100 bg-orange-50 flex items-center justify-center gap-1" data-ticket="day4-legoland">
+                            <i class="fas fa-ticket-alt text-orange-500"></i><span>景點票（樂高樂園）</span>
+                        </button>
+                        <button type="button" class="ticket-item px-2 py-2 rounded-lg border border-indigo-100 bg-indigo-50 flex items-center justify-center gap-1" data-ticket="day4-sky">
+                            <i class="fas fa-city text-indigo-500"></i><span>景點票（Sky Promenade）</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card p-4">
+                    <h3 class="font-bold text-sm mb-1">Day 5: 名古屋 → TOYOTA → 機場</h3>
+					<p class="text-xs text-slate-500 mb-3">名鐵 本線【榮生站】/【名古屋站】/空港線【中部國際空港(μ-SKY 特急)】</p>
+                          <div class="grid grid-cols-2 gap-2 text-[11px]">
+						  <button type="button" class="ticket-item px-2 py-2 rounded-lg border border-indigo-100 bg-indigo-50 flex items-center justify-center gap-1" data-ticket="day5-toyota">
+                            <i class="fas fa-city text-indigo-500"></i><span>景點票（TOYOTA）</span>
+                        </button>
+                        <button type="button" class="ticket-item px-2 py-2 rounded-lg border border-slate-200 flex items-center justify-center gap-1" data-ticket="day5-transport">
+                            <i class="fas fa-train text-slate-500"></i><span>交通票（名鐵 μ-SKY）</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -216,9 +333,9 @@
             <div class="card p-5 mb-6 bg-red-50 border-red-100">
                 <h3 class="font-bold text-red-600 mb-3 text-sm">緊急聯絡</h3>
                 <div class="text-xs space-y-2">
-                    <p class="flex justify-between"><span>警察局</span><b>110</b></p>
-                    <p class="flex justify-between"><span>救護車</span><b>119</b></p>
-                    <p class="pt-2 border-t border-red-100 text-[10px]">駐大阪辦事處: +81-6-6443-8481</p>
+                    <p class="flex justify-between"><span>飯店名稱</span><b>名鉄イン名古屋駅新幹線口</b></p>
+                    <p class="flex justify-between"><span>飯店地址</span><b>愛知県名古屋市中村区則武一丁目6番3号, 〒453-0014</b></p>
+                    <p class="pt-2 border-t border-red-100 text-[10px]">飯店電話: 81524533434</p>
                 </div>
             </div>
             <div class="card p-5">
@@ -248,9 +365,9 @@
                 <i class="fas fa-train text-lg"></i>
                 <span class="text-[8px] font-bold">TRANS</span>
             </button>
-            <button onclick="showTab('guide', this)" class="nav-item flex flex-col items-center gap-1 text-slate-400">
-                <i class="fas fa-book-open text-lg"></i>
-                <span class="text-[8px] font-bold">GUIDE</span>
+            <button onclick="showTab('ticket', this)" class="nav-item flex flex-col items-center gap-1 text-slate-400">
+                <i class="fas fa-ticket-alt text-lg"></i>
+                <span class="text-[8px] font-bold">TICKET</span>
             </button>
             <button onclick="showTab('wallet', this)" class="nav-item flex flex-col items-center gap-1 text-slate-400">
                 <i class="fas fa-yen-sign text-lg"></i>
