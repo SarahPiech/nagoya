@@ -22,7 +22,7 @@ function showTab(tabId, el) {
 
 function calculateRate() {
     const input = document.getElementById('calc-input').value;
-    const rate = parseFloat(document.getElementById('manual-rate').value) || 0.215;
+    const rate = parseFloat(document.getElementById('manual-rate').value) || 0.2;
     try {
         const result = eval(input.replace(/[^-()\d/*+.]/g, ''));
         document.getElementById('calc-result').innerText = `NT$ ${Math.round(result * rate).toLocaleString()}`;
@@ -53,7 +53,7 @@ function handleImage(input) {
 function addExpense() {
     const name = document.getElementById('expense-name').value;
     const amount = document.getElementById('expense-amount').value;
-    const rate = parseFloat(document.getElementById('manual-rate').value) || 0.215;
+    const rate = parseFloat(document.getElementById('manual-rate').value) || 0.2;
     if(!name || !amount) return;
     const expenses = JSON.parse(localStorage.getItem('nagoya_expenses') || '[]');
     expenses.unshift({ id: Date.now(), name, jpy: amount, twd: Math.round(amount * rate), img: currentImgBase64 });
