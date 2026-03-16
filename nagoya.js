@@ -266,13 +266,13 @@ const ticketDetails = {
         sections: [
             {
                 title: '地鐵 東山線 名古屋站 ↔ 東山公園站',
-                adult: '¥240 單程/¥760 一日券（可填入大人來回票價）',
-                child: '¥120 單程/¥380 一日券（可填入小孩來回票價）'
+                adult: '¥240 單程/¥760 一日券',
+                child: '¥120 單程/¥380 一日券'
             },
             {
                 title: '地鐵 東山線 名古屋站 ↔ 星丘站',
-                adult: '¥270 單程/¥760 一日券（可填入大人來回票價）',
-                child: '¥165 單程/¥380一日券（可填入小孩來回票價）'
+                adult: '¥270 單程/¥760 一日券',
+                child: '¥165 單程/¥380一日券'
             }
         ]
     },
@@ -281,8 +281,8 @@ const ticketDetails = {
         sections: [
             {
                 title: '',
-                adult: '¥500 (持名古屋地鐵一日券 = 8折 ¥400_（可填入 動植物園 大人門票）',
-                child: '初中以下無料（可填入 動植物園 小孩門票）'
+                adult: '¥500 (持名古屋地鐵一日券 = 8折 ¥400',
+                child: '初中以下無料'
             }
         ]
     },
@@ -291,13 +291,13 @@ const ticketDetails = {
         sections: [
             {
                 title: '地鐵 名城線 名古屋站 ↔ 名城公園站',
-                adult: '¥620/環保券 [地鐵+巴士]（可填入大人來回票價）',
-                child: '¥310/環保券 [地鐵+巴士]（可填入小孩來回票價）'
+                adult: '¥620/環保券 [地鐵+巴士]',
+                child: '¥310/環保券 [地鐵+巴士]'
             },
             {
                 title: '地鐵 東山線／名城線 名古屋站 ↔ 榮站',
-                adult: '¥620/環保券 [地鐵+巴士]（可填入大人來回票價）',
-                child: '¥310/環保券 [地鐵+巴士]（可填入小孩來回票價）'
+                adult: '¥620/環保券 [地鐵+巴士]',
+                child: '¥310/環保券 [地鐵+巴士]'
             }
         ]
     },
@@ -306,8 +306,8 @@ const ticketDetails = {
         sections: [
             {
                 title: '',
-                adult: '¥500（可填入 名古屋城 大人門票）',
-                child: '初中以下無料（可填入 名古屋城 小孩門票）'
+                adult: '¥500',
+                child: '初中以下無料'
             }
         ]
     },
@@ -316,8 +316,8 @@ const ticketDetails = {
         sections: [
             {
                 title: '',
-                adult: '¥360/一日券¥800（可填入 青波線 大人單程 / 來回票價）',
-                child: '¥180/一日券¥400（可填入 青波線 小孩單程 / 來回票價）'
+                adult: '¥360 單程/一日券¥800',
+                child: '¥180 單程/一日券¥400'
             }
         ]
     },
@@ -326,8 +326,8 @@ const ticketDetails = {
         sections: [
             {
                 title: '',
-                adult: '¥7,100（可填入 樂高樂園 大人門票）',
-                child: '¥4,700（可填入 樂高樂園 小孩門票）'
+                adult: '¥7,100',
+                child: '¥4,700'
             }
         ]
     },
@@ -336,8 +336,8 @@ const ticketDetails = {
         sections: [
             {
                 title: '',
-                adult: '¥1,000（可填入 Sky Promenade 大人票價）',
-                child: '¥300, 週末無料（可填入 Sky Promenade 小孩票價）'
+                adult: '¥1,000',
+                child: '¥300, 週末無料'
             }
         ]
     },
@@ -347,17 +347,22 @@ const ticketDetails = {
         sections: [
             {
                 title: '',
-                adult: '¥1,000（可填入 TOYOTA 大人票價）',
-                child: '¥200, 週末無料（可填入 TOYOTA 小孩票價）'
+                adult: '¥1,000',
+                child: '¥200, 週末無料'
             }
         ]
     },
 		
 	'day5-transport': {
-        title: 'Day 5 交通票：名鐵名古屋站 → 機場（名鐵 μ-SKY）',
-        sections: [
+        title: 'Day 5 交通票：名鐵名古屋站 → 名鐵 榮生站 → 機場（名鐵 μ-SKY）',
+         sections: [
             {
-                title: '',
+                title: '名鐵名古屋站 → 名鐵 榮生站',
+                adult: '¥180 單程',
+                child: '¥180 單程'
+            },
+            {
+                title: '名鐵名古屋站 → 機場',
                 adult: '¥1,430（可填入 回程 μ-SKY 大人票價）',
                 child: '¥1,430（可填入 回程 μ-SKY 小孩票價）'
             }
